@@ -1,6 +1,11 @@
 import React from 'react';
-
+import config from '../config'
+import ApiContext from '../ApiContext'
 import ValidationError from '../ValidationError/ValidationError'
+
+const { v4: uuidv4 } = require('uuid');
+
+
 
 export default class AddFolder extends React.Component{
 
@@ -12,18 +17,23 @@ export default class AddFolder extends React.Component{
         }
     }
 
+    static contextType = ApiContext;
+
 
     handleSubmit(event){
         event.preventDefault();
         const theFname = event.target.folderName.value;
-        console.log(theFname);
+        const newNote = {
+            id: uuidv4(),
+            name: theFname
+        }
 
-        /*
-        const url = 
+        
+        const url = `${config.API_ENDPOINT}/folders`;
 
         const options = {
             method : 'POST',
-            body : JSON.stringify(theFname),
+            body : JSON.stringify(newNote),
             headers: {
             "Content-Type": "application/json",
           }
@@ -37,14 +47,15 @@ export default class AddFolder extends React.Component{
             return res.json();
         })
         .then(data =>{
-            this.setState({value: ''});
+            this.context.handleAddFolder(data);
+            this.setState({value: '', touched: false});
         })
         .catch(err =>{
             this.setState({
                 error: err.message
             });
         });
-        */
+        
     }
 
     updateName(name){
@@ -74,7 +85,10 @@ export default class AddFolder extends React.Component{
             <input type="text" className="folder-input" name="folderName" onChange={ e => this.updateName(e.target.value)} />
             {this.state.theFolderName.touched && <ValidationError message={nameError} />}
             <br />
-            <button type="submit" className="folder-submit" disabled={this.validateName()}>Submit</button>
+            <button 
+                type="submit" 
+                className="folder-submit" 
+                disabled={this.validateName()}>Submit</button>
         </form>
         )
     }

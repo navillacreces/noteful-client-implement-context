@@ -11,6 +11,8 @@ import './App.css';
 import AddNote from '../AddNote/AddNote';
 import AddFolder from '../AddFolder/AddFolder';
 
+const { v4: uuidv4 } = require('uuid');
+
 class App extends Component {
     state = {
         notes: [],
@@ -44,6 +46,21 @@ class App extends Component {
         });
     };
 
+    handleAddNote = aNote => {
+        this.setState(
+            {
+                notes: [...this.state.notes,aNote]
+            }
+        );
+    };
+
+    handleAddFoler = folderName =>{
+        this.setState(
+            {
+                folders: [...this.state.folders, folderName]
+            }
+        );
+    };
     renderNavRoutes() {
         return (
             <>
@@ -61,6 +78,8 @@ class App extends Component {
             </>
         );
     }
+
+    
 
     renderMainRoutes() {
         return (
@@ -82,7 +101,10 @@ class App extends Component {
         const value = {
             notes: this.state.notes,
             folders: this.state.folders,
-            deleteNote: this.handleDeleteNote
+            deleteNote: this.handleDeleteNote,
+            handleAddFolder: this.handleAddFoler,
+            handleAddNote: this.handleAddNote
+            
         };
         return (
             <ApiContext.Provider value={value}>
