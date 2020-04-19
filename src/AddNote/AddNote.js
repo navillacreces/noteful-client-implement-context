@@ -10,15 +10,21 @@ const { v4: uuidv4 } = require('uuid');
 
 export default class AddNote extends React.Component{
 
+    static defaultProps = {
+        history: {
+          push: () => { }
+        },
+      }
+
+
     constructor(props){
         super(props);
         this.state = {
-            note : {
-                name: '',
-                content: '',
-                folder: '',
-                nameInputBool: false
-            }
+            name : '',
+            content: '',
+            folderId: '',
+            noteid: '',
+            nameInputBool: false
         };
     }
 
@@ -26,30 +32,35 @@ export default class AddNote extends React.Component{
 
     updateName = name => {
         this.setState({
-            note:{name: name, nameInputBool: true}
+            name: name,
+            nameInputBool: true
         })
     }
 
     updateContent = content =>{
         this.setState({
-            note:{content: content}
+            
+                content: content
+            
         })
     }
 
     updateFolder = folder =>{
         this.setState({
-            note:{folder:folder}
+            folder:folder
+           
         })
     }
     
     onSubmit(event){
         event.preventDefault();
-        //console.log(this.context.notes);
+        
         const theNote = {
-            content : event.target.contents.value,
+            
             name : event.target.name.value,
             id: uuidv4(),
             folder: event.target.select.value,
+            content : event.target.contents.value
         };
         
         const url = `${config.API_ENDPOINT}/notes`;
@@ -72,6 +83,7 @@ export default class AddNote extends React.Component{
         })
         .then(data =>{
             this.context.handleAddNote(theNote);
+            this.props.history.push('/');
         })
         .catch(err =>{
             this.setState({
@@ -82,7 +94,7 @@ export default class AddNote extends React.Component{
 
 
     validateName(){
-        const name = this.state.note.name;
+        const name = this.state.name;
 
         if(name.length === 0){
             return 'name is required'
@@ -102,7 +114,7 @@ export default class AddNote extends React.Component{
             <h2>Add a note</h2>
             <label htmlFor="note-name">Name: </label>
             <input type="text" className="note-name-in" name="name" onChange={event => this.updateName(event.target.value)}/>
-            {this.state.note.nameInputBool && <ValidationError message={nameError} />}
+            {this.state.nameInputBool && <ValidationError message={nameError} />}
             <br />
             <label htmlFor="note-contents"> Contents: </label>
             <textarea type="text" className="note-text" name="contents" onChange={event => this.updateContent(event.target.value)}/>
@@ -120,3 +132,4 @@ export default class AddNote extends React.Component{
     )
     }
 }
+
