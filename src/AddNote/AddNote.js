@@ -58,8 +58,8 @@ export default class AddNote extends React.Component{
         const theNote = {
             
             name : event.target.name.value,
-            id: uuidv4(),
-            folder: event.target.select.value,
+            //id: uuidv4(),
+            folderId: event.target.select.value,
             content : event.target.contents.value
         };
         
@@ -79,10 +79,11 @@ export default class AddNote extends React.Component{
             if(!res.ok){
                 throw new Error('Something went wrong, please try again later');
             }
+            console.log(res.json())
             return res.json();
         })
         .then(data =>{
-            this.context.handleAddNote(theNote);
+            this.context.handleAddNote(data);
             this.props.history.push('/');
         })
         .catch(err =>{
