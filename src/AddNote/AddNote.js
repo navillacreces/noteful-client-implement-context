@@ -60,7 +60,8 @@ export default class AddNote extends React.Component{
             name : event.target.name.value,
             //id: uuidv4(),
             folderId: event.target.select.value,
-            content : event.target.contents.value
+            content : event.target.contents.value,
+            modified: new Date()
         };
         
         const url = `${config.API_ENDPOINT}/notes`;
@@ -79,7 +80,7 @@ export default class AddNote extends React.Component{
             if(!res.ok){
                 throw new Error('Something went wrong, please try again later');
             }
-            console.log(res.json())
+            
             return res.json();
         })
         .then(data =>{
