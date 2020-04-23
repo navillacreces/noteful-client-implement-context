@@ -23,7 +23,7 @@ export default class AddFolder extends React.Component{
     handleSubmit(event){
         event.preventDefault();
         const theFname = event.target.folderName.value;
-        const newNote = {
+        const newFolder = {
             id: uuidv4(),
             name: theFname
         }
@@ -33,7 +33,7 @@ export default class AddFolder extends React.Component{
 
         const options = {
             method : 'POST',
-            body : JSON.stringify(newNote),
+            body : JSON.stringify(newFolder),
             headers: {
             "Content-Type": "application/json",
           }
