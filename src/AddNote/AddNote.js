@@ -57,10 +57,10 @@ export default class AddNote extends React.Component{
         
         const theNote = {
             
-            name : event.target.name.value,
+            note_name : event.target.name.value,
             //id: uuidv4(),
-            folderId: event.target.select.value,
-            content : event.target.contents.value,
+            folder_id : event.target.select.value,
+            note_content : event.target.contents.value,
             modified: new Date()
         };
         

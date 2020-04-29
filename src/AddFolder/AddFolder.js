@@ -24,8 +24,8 @@ export default class AddFolder extends React.Component{
         event.preventDefault();
         const theFname = event.target.folderName.value;
         const newFolder = {
-            id: uuidv4(),
-            name: theFname
+            folder_id: uuidv4(),
+            folder_name: theFname
         }
 
         
