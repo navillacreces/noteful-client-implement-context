@@ -43,8 +43,9 @@ class App extends Component {
     }
 
     handleDeleteNote = noteId => {
+        console.log(noteId)
         this.setState({
-            notes: this.state.notes.filter(note => note.id !== noteId)
+            notes: this.state.notes.filter(note => note.id !== noteId) // note.id
         });
     };
 
@@ -104,7 +105,7 @@ class App extends Component {
         const value = {
             notes: this.state.notes,
             folders: this.state.folders,
-            deleteNote: this.handleDeleteNote,
+            handleDeleteNote: this.handleDeleteNote,
             handleAddFolder: this.handleAddFoler,
             handleAddNote: this.handleAddNote
             
