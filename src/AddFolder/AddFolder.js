@@ -23,8 +23,9 @@ export default class AddFolder extends React.Component{
     handleSubmit(event){
         event.preventDefault();
         const theFname = event.target.folderName.value;
+        
         const newFolder = {
-            folder_id: uuidv4(),
+            id: uuidv4(),
             folder_name: theFname
         }
 
@@ -35,9 +36,12 @@ export default class AddFolder extends React.Component{
             method : 'POST',
             body : JSON.stringify(newFolder),
             headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
+            
           }
         };
+
+        console.log(options)
 
         fetch(url,options)
         .then(res =>{

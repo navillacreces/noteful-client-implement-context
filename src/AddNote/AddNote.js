@@ -1,5 +1,5 @@
 import React from 'react';
-import { text } from '@fortawesome/fontawesome-svg-core';
+//import { text } from '@fortawesome/fontawesome-svg-core';
 import config from '../config'
 
 import ValidationError from '../ValidationError/ValidationError'
@@ -23,7 +23,7 @@ export default class AddNote extends React.Component{
             name : '',
             content: '',
             folderId: '',
-            noteid: '',
+            
             nameInputBool: false
         };
     }
@@ -55,12 +55,11 @@ export default class AddNote extends React.Component{
     onSubmit(event){
         event.preventDefault();
         
-        const theNote = {
-            
-            note_name : event.target.name.value,
-            //id: uuidv4(),
+        const newNote = {
+            id : uuidv4(),
+            name : event.target.name.value,
+            content : event.target.contents.value,
             folder_id : event.target.select.value,
-            note_content : event.target.contents.value,
             modified: new Date()
         };
         
@@ -68,7 +67,7 @@ export default class AddNote extends React.Component{
 
         const options = {
             method : 'POST',
-            body : JSON.stringify(theNote),
+            body : JSON.stringify(newNote),
             headers : {
                 "Content-Type": "application/json",
             }
@@ -123,8 +122,8 @@ export default class AddNote extends React.Component{
             <br />
             <select className="selectFolder" name="select" onChange={e => this.updateFolder(e.target.value)}>
             {this.context.folders.map(folder => (
-                <option key={folder.name} name='folder' value={folder.id}>
-                  {folder.name}
+                <option key={folder.id} name='folder' value={folder.id}>
+                  {folder.folder_name}
                 </option>
               ))}
             </select>

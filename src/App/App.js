@@ -11,7 +11,7 @@ import './App.css';
 import AddNote from '../AddNote/AddNote';
 import AddFolder from '../AddFolder/AddFolder';
 
-const { v4: uuidv4 } = require('uuid');
+//const { v4: uuidv4 } = require('uuid');
 
 class App extends Component {
     state = {
@@ -33,6 +33,8 @@ class App extends Component {
                 return Promise.all([notesRes.json(), foldersRes.json()]);
             })
             .then(([notes, folders]) => {
+                console.log(notes)
+                console.log(folders)
                 this.setState({notes, folders});
             })
             .catch(error => {
@@ -47,6 +49,7 @@ class App extends Component {
     };
 
     handleAddNote = aNote => {
+        console.log(aNote)
         this.setState(
             {
                 notes: [...this.state.notes,aNote]
