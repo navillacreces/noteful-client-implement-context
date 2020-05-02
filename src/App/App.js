@@ -43,14 +43,14 @@ class App extends Component {
     }
 
     handleDeleteNote = noteId => {
-        console.log(noteId)
+        
         this.setState({
             notes: this.state.notes.filter(note => note.id !== noteId) // note.id
         });
     };
 
     handleAddNote = aNote => {
-        console.log(aNote)
+      //  console.log(aNote)
         this.setState(
             {
                 notes: [...this.state.notes,aNote]

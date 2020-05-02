@@ -27,10 +27,10 @@ export default class Note extends React.Component {
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
-        return res.json()
+        //return res.json()
       })
       .then(() => {
-        this.context.deleteNote(noteId)
+        this.context.handleDeleteNote(noteId)
         // allow parent to perform extra behaviour
         this.props.onDeleteNote(noteId)
       })
@@ -62,7 +62,7 @@ export default class Note extends React.Component {
             Modified
             {' '}
             <span className='Date'>
-              {format(modified, 'Do MMM YYYY')}
+              {format(modified, 'DD MMM YYYY')}
             </span>
           </div>
         </div>
