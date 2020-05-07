@@ -1,6 +1,6 @@
 {
-    "version": 2,
-    "name": "noteful",
+    "version": 1,
+    "name" : "noteful-client",
     "routes": [
         { "handle": "filesystem" },
         { "src": "/.*", "dest": "/index.html" }
